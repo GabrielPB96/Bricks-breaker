@@ -26,4 +26,8 @@ class Panel {
                 e.paint(this.lienzo);
         }
     }
+
+    removeAll() {
+        this.elem = [];
+    }
 }

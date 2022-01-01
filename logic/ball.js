@@ -5,9 +5,17 @@ class Ball extends Element {
     }
     
     paint(g){
+        var colorFill = g.fillStyle;
+        var colorStroke = g.strokeStyle;
         g.beginPath();
         g.arc(this.x,this.y,this.radio,0,Math.PI*2,false);
         g.fill();
         //g.stroke();
+        g.fillStyle = colorFill;
+        g.strokeStyle = colorStroke;
+    }
+
+    clone() {
+        return new Ball(this.x, this.y, this.radio);
     }
 }

@@ -9,13 +9,17 @@ var ball = new Ball(150,250,5);
 var timer;
 
 var score;
+var nivelA;
 
 function init(){
+    Level.initNiveles();
+
     barra.setVisible(true);
     ball.setVisible(true);
     
     var ele = document.getElementById("lienzo");
     score = document.getElementById("score");
+    nivelA = document.getElementById("nivel");
 
     ele.addEventListener("mousemove", moveBarra, false);
     ele.addEventListener("touchmove",moveBarra,false);
@@ -24,13 +28,10 @@ function init(){
     
     game.setBall(ball);
     game.setBarra(barra);
-
-    for(let e of game.board){
-        b.add(e);
-    }
     
     game.setPanel(b);
-    game.panel.repaint();
+    game.setLevel(Level.niveles[0]);
+    game.loadLevel();
 }
 
 function moveBarra(event){
@@ -67,10 +68,9 @@ function run(){
                 if(!enJuego){
                     reset();
                     clearInterval(timer);
-                    inicio = true;
                 }
             }
-        },5);
+        },10);
     }
 }
 

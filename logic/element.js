@@ -34,42 +34,10 @@ class Element {
         this.y = this.y + dis;
     }
     
-    moveTop(){
-        this.moveY(-1);
+    clone() {
+        throw "clone() Undefined";
     }
-    
-    moveBottom(){
-        this.moveY(1);
-    }
-    
-    moveLeft(){
-        this.moveX(-1);
-    }
-    
-    moveRight(){
-        this.moveX(1);
-    }
-    
-    moveRightDigTop(){
-        this.moveX(1);
-        this.moveY(-1);
-    }
-    
-    moveRightDigBottom(){
-        this.moveX(1);
-        this.moveY(1);
-    }
-    
-    moveLeftDigTop(){
-        this.moveX(-1);
-        this.moveY(-1);
-    }
-    
-    moveLeftDigBottom(){
-        this.moveX(-1);
-        this.moveY(1);
-    }
-    
+
     toString(){
         return "X: "+this.x+", Y: "+this.y;
     }
