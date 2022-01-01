@@ -1,7 +1,9 @@
 let direction = 1;
-let df = 0;
 const FILAS = 10;
 const COLUMNAS = 14;
+
+let dy = 1;
+let dx = 1;
 
 class Game {
     constructor(){
@@ -9,7 +11,6 @@ class Game {
         this.initBoard();
         this.barra = null;
         this.ball = null;
-        this.d = 1;
         this.panel = null;
     }
     
@@ -22,7 +23,7 @@ class Game {
     initBoard(){
       for(let f=0;f<FILAS;f++){
         for(let c=0;c<COLUMNAS;c++){
-          let nB=new Brick(c*21+5,f*11+10, 20,10);
+          let nB=new Brick(c*23+5,f*13+10, 20,10);
           nB.setVisible(true);
           this.board.push(nB);
         }
@@ -39,7 +40,7 @@ class Game {
     }
     
     colision(){
-        let col = false;
+        let col = 0;
         for(let b of this.board){
             if(b.visible == true){
                 let x,y;
@@ -55,32 +56,38 @@ class Game {
                 let d = Math.sqrt(Math.pow((this.ball.x-x),2)+Math.pow((this.ball.y-y),2));
             
                 if(d < this.ball.radio){
-                    if(b!=this.barra) b.setVisible(false);
-                    col = true;
+                    if(b!=this.barra){
+                        sco += 10;
+                        score.innerHTML = "Score: "+sco;
+                        b.setVisible(false);
+                    }
+                        if(this.ball.y > y || this.ball.y < y){
+                            col = 1
+                        }
+                        if(this.ball.x > x || this.ball.x < x){
+                            col = 2;
+                    }
                 }
-          }
+            }
         }
-        if(this.ball.y-this.ball.radio < 0) {
-            this.ball.y+=2;
-            col =  true;
+        if(this.ball.y-this.ball.radio < 0){
+            col = 1;
         }
-        if(this.ball.y+this.ball.radio > this.panel.height) {
-            this.ball.y-=2;
-            col =  true;
+        if(this.ball.y+this.ball.radio > this.panel.height){
+            col = 5;
         }
-
-        if(this.ball.x+this.ball.radio > this.panel.width) {
-            col =  true;
-            this.ball.x-=2;
-        }
-        if(this.ball.x-this.ball.radio < 0) {
-            this.ball.x+=2;
-            col =  true;
+        if(this.ball.x-this.ball.radio < 0 || this.ball.x+this.ball.radio > this.panel.width){
+            col = 2;
         }
         return col;
     }
 
     reset() {
+        clearInterval(timer);
+        sco = 0;
+        score.innerHTML = "Score: "+sco;
+        barra.setBounds(130,255,40,5);
+        ball.setBounds(150,250,5);
         for (const e of this.board) {
             e.setVisible(true);
         }
@@ -88,27 +95,20 @@ class Game {
     }
 
     run(){  
-        if(direction < 17 && direction > 12){
-            this.ball.moveX(1);
-            this.ball.moveY(1);
-        }else if(direction < 13 && direction > 8){
-            this.ball.moveX(1);
-            this.ball.moveY(-1);
-        }else if(direction < 9 && direction > 4){
-            this.ball.moveX(-1);
-            this.ball.moveY(-1);
-        }else{
-            this.ball.moveX(-1);
-            this.ball.moveY(1);
+        this.ball.moveY(dy);
+        this.ball.moveX(dx);
+        this.panel.repaint();
+        let dir = this.colision();
+        if(dir!=0){
+            if(dir == 1){
+                dy *= -1;
+                this.ball.y += (3*dy);
+            }else if(dir == 2){
+                dx *= -1;
+                this.ball.x += (3*dx);
+            }else if(dir == 5) {
+                enJuego = false;
+            }
         }
-       this.panel.repaint();
-       if(this.colision()==true){
-            do{
-                df = parseInt(Math.random() * 16 + 1);
-            }while(direction == df);
-            direction = df;
-            console.log(direction);
-            //this.d *= -1;
-       }
     }
 }

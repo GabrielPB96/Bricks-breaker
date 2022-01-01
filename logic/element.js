@@ -14,6 +14,17 @@ class Element {
     setVisible(v){
         this.visible = v;
     }
+
+    setX(nX) {
+        this.x = nX;
+    }
+
+    setBounds(x, y, w, h) {
+        this.x = x;
+        this.y = y;
+        this.width = w;
+        this.height = h;
+    }
     
     moveX(dis){
         this.x = this.x + dis;
