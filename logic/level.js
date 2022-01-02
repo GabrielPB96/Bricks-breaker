@@ -25,6 +25,7 @@ class Level {
                     }else if(patron[f][c] == 2) {
                         this.tablero[pos].setVisible(true);
                         this.tablero[pos].estatico = true;
+                        this.tablero[pos].color = "rgb(168, 64, 0)";
                     }
                     pos++;
                 }

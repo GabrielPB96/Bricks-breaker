@@ -7,7 +7,7 @@ let dx = 1;
 
 let cloneBoard = [];
 
-let N = 3;
+let N = 1;
 
 var removeItemFromArr = ( arr, item ) => {
     var i = arr.indexOf( item );
@@ -37,13 +37,14 @@ class Game {
         for(let e of cloneBoard){
             this.panel.add(e);
         }
+        
         this.panel.repaint();
     }
     
     initBoard(){
       for(let f=0;f<FILAS;f++){
         for(let c=0;c<COLUMNAS;c++){
-          let nB=new Brick(c*23+5,f*13+10, 20,10);
+          let nB=new Brick(c*23+5,f*13+10, 20,10, "black");
           nB.setVisible(true);
           this.board.push(nB);
         }
@@ -141,6 +142,7 @@ class Game {
     actualizarNivel() {
         if(N < Level.niveles.length) {
             N++;
+            console.log(N);
         }else{
             N = 1;
         }

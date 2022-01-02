@@ -3,13 +3,17 @@ let pause = false;
 let enJuego = false;
 let sco = 0;
 
-var barra = new Brick(130,255,40,5);
-var ball = new Ball(150,250,5);
+var barra = new Brick(130,255,40,5, "black");
+var ball = new Ball(150,250,5, "black");
+var star = new Star(100, 100, 20, 20, "yellow");
+star.setVisible(true);
 
 var timer;
 
 var score;
 var nivelA;
+
+var b;
 
 function init(){
     Level.initNiveles();
@@ -24,7 +28,7 @@ function init(){
     ele.addEventListener("mousemove", moveBarra, false);
     ele.addEventListener("touchmove",moveBarra,false);
     
-    var b = new Panel(ele);
+    b = new Panel(ele);
     
     game.setBall(ball);
     game.setBarra(barra);
